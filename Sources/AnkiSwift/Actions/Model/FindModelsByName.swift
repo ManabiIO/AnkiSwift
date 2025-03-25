@@ -40,7 +40,7 @@ public struct Model: Decodable {
         public let plainText: Bool
         public let collapsed: Bool
         public let excludeFromSearch: Bool
-        public let id: Int64
+        public let id: Int64?
         public let tag: String?
         public let preventDeletion: Bool
     }
