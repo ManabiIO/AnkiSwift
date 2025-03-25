@@ -1,6 +1,6 @@
 #if os(macOS)
 public struct Model: Decodable {
-    public let id: Int64?
+    public let id: Int64
     public let name: String
     public let type: Int
     public let mod: Int
@@ -26,7 +26,7 @@ public struct Model: Decodable {
         public let did: Int?
         public let bfont: String
         public let bsize: Int
-        public let id: Int64
+        public let id: Int64?
     }
     
     public struct Field: Decodable {
