@@ -1,6 +1,6 @@
 #if os(macOS)
 public struct Model: Decodable {
-    public let id: Int64
+    public let id: Int64?
     public let name: String
     public let type: Int
     public let mod: Int
