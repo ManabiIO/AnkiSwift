@@ -14,7 +14,7 @@ public struct Model: Decodable {
     public let latexPost: String
     public let latexsvg: Bool
     public let req: [Model.RequiredField]
-    public let originalStockKind: Int
+    public let originalStockKind: Int?
     
     public struct Template: Decodable {
         public let name: String
