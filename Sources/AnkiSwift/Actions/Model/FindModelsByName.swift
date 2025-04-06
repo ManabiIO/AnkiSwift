@@ -41,7 +41,7 @@ public struct Model: Decodable {
         public let collapsed: Bool
         public let excludeFromSearch: Bool
         public let id: Int64?
-        public let tag: String?
+        public let tag: UInt32?
         public let preventDeletion: Bool
     }
     
