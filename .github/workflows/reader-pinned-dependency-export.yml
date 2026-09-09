@@ -1,0 +1,33 @@
+name: Reader pinned dependency export
+on:
+  push:
+    branches: [codex/reader-pinned-dependency-export-20260909]
+    paths: [.github/workflows/reader-pinned-dependency-export.yml]
+permissions:
+  contents: read
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: f2d4dd22e5c9dcc0fd0d38ca18be29ca7c85bc33
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Export only pinned source objects without credentials
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/pinned-dependency
+          test "$(git rev-parse HEAD)" = f2d4dd22e5c9dcc0fd0d38ca18be29ca7c85bc33
+          git update-ref refs/heads/reader-native-pinned HEAD
+          git bundle create /tmp/pinned-dependency/AnkiSwift.bundle refs/heads/reader-native-pinned
+          git archive HEAD | gzip -n > /tmp/pinned-dependency/AnkiSwift.tar.gz
+          git ls-tree -r HEAD > /tmp/pinned-dependency/manifest.txt
+          git rev-parse HEAD HEAD^{tree} > /tmp/pinned-dependency/identity.txt
+          sha256sum /tmp/pinned-dependency/* > /tmp/pinned-dependency/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: reader-pinned-ankiswift
+          path: /tmp/pinned-dependency
+          retention-days: 14
